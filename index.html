@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pomodoro</title>
+    <link rel="stylesheet" href="styles/style.css" />
+  </head>
+  <body>
+    <ul class="menu">
+      <li class="menu__item">
+        <button id="work" class="menu__button">work</button>
+      </li>
+      <li class="menu__item">
+        <button id="break" class="menu__button">break</button>
+      </li>
+      <li class="menu__item">
+        <button id="long-break" class="menu__button">long break</button>
+      </li>
+    </ul>
+    <div class="time">
+      <div id="minutes"></div>
+      <div class="divider">:</div>
+      <div id="seconds"></div>
+    </div>
+    <div class="controls">
+      <button id="start" class="control">start</button>
+      <button id="continue" class="control">continue</button>
+      <button id="pause" class="control">pause</button>
+      <button id="reset" class="control">reset</button>
+    </div>
+    <script src="scripts/script.js"></script>
+  </body>
+</html>

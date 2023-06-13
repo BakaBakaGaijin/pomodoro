@@ -1,0 +1,61 @@
+/* Обнуление стилей */
+body,
+ul {
+  margin: 0;
+}
+
+ul {
+  padding: 0;
+}
+
+/* Pomodoro */
+
+body {
+  background-color: tomato;
+}
+
+ul {
+  background-color: royalblue;
+  display: flex;
+  justify-content: center;
+  list-style-type: none;
+  gap: 10px;
+}
+
+.menu__button {
+  padding: 10px;
+}
+
+.menu__button_active {
+  background-color: rebeccapurple;
+}
+
+.time {
+  background-color: lime;
+  display: flex;
+  justify-content: center;
+  font-size: 64px;
+}
+
+.mode {
+  padding: 10px;
+}
+
+.divider {
+  background-color: red;
+  line-height: 100%;
+}
+
+.controls {
+  background-color: aliceblue;
+  display: flex;
+  justify-content: center;
+}
+
+.control {
+  padding: 20px;
+}
+
+.control_hidden {
+  display: none;
+}
