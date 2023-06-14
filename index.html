@@ -49,8 +49,31 @@
       <button id="pause" class="control">pause</button>
       <button id="reset" class="control">reset</button>
     </div>
+    <section class="tasks">
+      <div class="container tasks__container">
+        <h2 class="tasks__title">Tasks</h2>
+        <ul class="tasks__list"></ul>
+        <button class="tasks__button">Add task</button>
+      </div>
+    </section>
+    <dialog id="modal" class="modal">
+      <input
+        id="taskInput"
+        class="modal__input"
+        type="text"
+        placeholder="What are you working on?"
+      />
+      <div class="modal__btns">
+        <button class="modal__button" id="modal-cancel">close</button>
+        <button class="modal__button" id="modal-save">save</button>
+        <button class="modal__button modal__button_hidden" id="modal-update">
+          update
+        </button>
+      </div>
+    </dialog>
 
     <script src="scripts/formatTime.js"></script>
     <script src="scripts/script.js"></script>
+    <script src="scripts/tasks.js"></script>
   </body>
 </html>
