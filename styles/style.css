@@ -160,10 +160,6 @@ ul {
   gap: 10px;
 }
 
-/* .task_completed .task__btns * {
-  text-decoration: none;
-} */
-
 .modal[open] {
   display: flex;
   flex-direction: column;
