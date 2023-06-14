@@ -82,6 +82,63 @@ ul {
   display: none;
 }
 
+.tasks {
+  background-color: royalblue;
+}
+
+.tasks__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tasks__title {
+  text-align: center;
+}
+
+.tasks__list {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+  width: 100%;
+  background: purple;
+}
+
+.tasks__button {
+  margin-left: auto;
+  margin-right: auto;
+  background-color: aquamarine;
+}
+
+.task {
+  display: flex;
+  justify-content: space-between;
+}
+
+.task__btns {
+  display: flex;
+  gap: 10px;
+}
+
+.modal[open] {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal__input {
+  margin-bottom: 10px;
+}
+
+.modal__btns {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.modal__button_hidden {
+  display: none;
+}
+
 @media screen and (max-width: 720px) {
   .container {
     padding: 0 16px;
