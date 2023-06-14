@@ -26,6 +26,8 @@ const handleModalClose = () => {
 };
 
 const handleEdit = (e) => {
+  e.stopPropagation();
+
   handleModalShow();
 
   saveModalBtn.classList.add("modal__button_hidden");
@@ -45,19 +47,69 @@ const handleModalUpdate = () => {
 };
 
 const handleRemove = (e) => {
+  e.stopPropagation();
+
   const removedElement = document.querySelector(
     `[data-key='${e.target.dataset.removeKey}']`
   );
 
+  const isActive = removedElement.classList.contains("task_active");
+
   tasksList.removeChild(removedElement);
+
+  if (isActive) {
+    const tasks = document.querySelectorAll(".task");
+
+    if (tasks.length) {
+      tasks[0].classList.add("task_active");
+    }
+  }
+};
+
+const handleComplete = (e) => {
+  e.stopPropagation();
+
+  const completedElement = document.querySelector(
+    `[data-key='${e.target.dataset.completeKey}']`
+  );
+
+  e.target.textContent = e.target.textContent === "✔" ? "🗙" : "✔";
+
+  completedElement.classList.toggle("task_completed");
+};
+
+const handleSelect = (e) => {
+  const tasks = document.querySelectorAll(".task");
+  tasks.forEach((task) => {
+    if (task.dataset.key === e.target.dataset.key) {
+      task.classList.add("task_active");
+    } else {
+      task.classList.remove("task_active");
+    }
+  });
 };
 
 const handleModalSave = () => {
   const task = document.createElement("li");
   task.classList.add("task");
-  task.innerText = taskInput.value;
+
+  if (!tasksList.children.length) {
+    task.classList.add("task_active");
+  }
+
+  const textContainer = document.createElement("p");
+  textContainer.textContent = taskInput.value;
+  task.append(textContainer);
+
   const key = String(Math.random()).slice(2);
   task.dataset.key = key;
+
+  const completeBtn = document.createElement("button");
+  completeBtn.classList.add("task__complete");
+  completeBtn.textContent = "✔";
+  completeBtn.dataset.completeKey = key;
+  completeBtn.addEventListener("click", handleComplete);
+  task.append(completeBtn);
 
   const btns = document.createElement("div");
   btns.classList.add("task__btns");
@@ -76,7 +128,9 @@ const handleModalSave = () => {
 
   task.append(btns);
 
-  tasksList.prepend(task);
+  task.addEventListener("click", handleSelect);
+
+  tasksList.append(task);
   taskInput.value = "";
 
   handleModalClose();

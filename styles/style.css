@@ -1,6 +1,7 @@
 /* Обнуление стилей */
 body,
-ul {
+ul,
+p {
   margin: 0;
 }
 
@@ -111,8 +112,47 @@ ul {
 }
 
 .task {
+  cursor: pointer;
   display: flex;
   justify-content: space-between;
+  position: relative;
+  padding: 4px 4px 4px 37px;
+  background-color: lightgreen;
+}
+
+.task__complete {
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  padding: 0;
+  border: 0;
+  left: 7px;
+  line-height: 20px;
+  border-radius: 50%;
+}
+
+.task__complete:hover {
+  background-color: deepskyblue;
+}
+
+.task_active::before {
+  position: absolute;
+  content: "";
+  display: block;
+  width: 3px;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  background-color: deeppink;
+}
+
+.task_completed p {
+  text-decoration: line-through;
+  background-color: orange;
+  color: green;
 }
 
 .task__btns {
