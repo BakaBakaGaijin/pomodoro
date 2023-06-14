@@ -10,8 +10,30 @@ ul {
 
 /* Pomodoro */
 
+button,
+summary {
+  cursor: pointer;
+}
+
 body {
   background-color: tomato;
+}
+
+.container {
+  padding: 0 32px;
+}
+
+details {
+  background-color: orange;
+}
+
+.settings__label {
+  display: block;
+  padding: 5px;
+}
+
+.settings__button {
+  background-color: darkorchid;
 }
 
 ul {
@@ -58,4 +80,10 @@ ul {
 
 .control_hidden {
   display: none;
+}
+
+@media screen and (max-width: 720px) {
+  .container {
+    padding: 0 16px;
+  }
 }

@@ -7,6 +7,26 @@
     <link rel="stylesheet" href="styles/style.css" />
   </head>
   <body>
+    <section class="settings">
+      <div class="container">
+        <details>
+          <summary>Settings</summary>
+          <label class="settings__label"
+            >Long break interval:
+            <input id="longBreakIntervalInput" type="number" min="1" value="1"
+          /></label>
+          <label class="settings__label"
+            >Break minutes:
+            <input id="breakInput" type="number" min="1" value="5"
+          /></label>
+          <label class="settings__label"
+            >Long break minutes:
+            <input id="longBreakInput" type="number" min="2" value="15"
+          /></label>
+          <button class="settings__button" id="save">save</button>
+        </details>
+      </div>
+    </section>
     <ul class="menu">
       <li class="menu__item">
         <button id="work" class="menu__button">work</button>
@@ -29,6 +49,8 @@
       <button id="pause" class="control">pause</button>
       <button id="reset" class="control">reset</button>
     </div>
+
+    <script src="scripts/formatTime.js"></script>
     <script src="scripts/script.js"></script>
   </body>
 </html>

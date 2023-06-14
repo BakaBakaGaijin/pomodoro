@@ -12,23 +12,41 @@ const continueBtn = document.querySelector("#continue");
 const minutesEl = document.querySelector("#minutes");
 const secondsEl = document.querySelector("#seconds");
 
-const time = {
+const details = document.querySelector("details");
+
+// settings
+const longBreakIntervalInput = document.querySelector(
+  "#longBreakIntervalInput"
+);
+const breakInput = document.querySelector("#breakInput");
+const longBreakInput = document.querySelector("#longBreakInput");
+const saveBtn = document.querySelector("#save");
+
+const defaultTime = {
   work: {
-    minutes: 0,
-    seconds: 10,
+    minutes: 25, // 25
+    seconds: 0,
   },
 
   break: {
-    minutes: 0,
-    seconds: 20,
+    minutes: 5, // 5
+    seconds: 0,
   },
 
   longBreak: {
-    minutes: 0,
-    seconds: 30,
+    minutes: 15, // 15
+    seconds: 0,
   },
 };
 
+const time = {
+  work: { ...defaultTime.work },
+  break: { ...defaultTime.break },
+  longBreak: { ...defaultTime.longBreak },
+};
+
+let longBreakInterval = 4;
+let pomodoroAmount = 0;
 let currentMode;
 let timerId;
 let currentMinutes;
@@ -74,8 +92,8 @@ const changeMode = (mode) => {
   isPause = false;
   const { minutes, seconds } = time[mode];
 
-  minutesEl.innerHTML = minutes;
-  secondsEl.innerHTML = seconds;
+  minutesEl.textContent = formatTime(minutes);
+  secondsEl.textContent = formatTime(seconds);
 };
 
 handleWork(); // Задаём начальное значение
@@ -98,8 +116,8 @@ const handleStart = () => {
     }
 
     const timer = () => {
-      minutesEl.innerHTML = currentMinutes;
-      secondsEl.innerHTML = currentSeconds;
+      minutesEl.textContent = currentMinutes;
+      secondsEl.textContent = currentSeconds;
 
       currentSeconds -= 1;
 
@@ -107,15 +125,14 @@ const handleStart = () => {
         currentMinutes -= 1;
 
         if (currentMinutes === -1) {
-          switch (currentMode) {
-            case "work":
-              handleBreak();
-              break;
-            case "break":
-              handleLongBreak();
-              break;
-            default:
-              handleWork();
+          if (currentMode === "work") {
+            pomodoroAmount += 1;
+
+            !(pomodoroAmount % longBreakInterval)
+              ? handleLongBreak()
+              : handleBreak();
+          } else {
+            handleWork();
           }
         }
 
@@ -159,6 +176,40 @@ const handleContinue = () => {
   handleStart();
 };
 
+const updateTime = (newMinutes, mode) => {
+  if (currentMode === mode) {
+    if (newMinutes < 1) {
+      time[mode].minutes = 1;
+      currentMinutes = 1;
+      minutesEl.textContent = 1;
+    } else {
+      time[mode].minutes = newMinutes;
+      minutesEl.textContent = newMinutes;
+    }
+
+    currentSeconds = 0;
+    secondsEl.textContent = 0;
+  } else {
+    time[mode].minutes = newMinutes < 1 ? 1 : newMinutes;
+  }
+};
+
+const handleSave = () => {
+  const { value: longBreakMinutes } = longBreakInput;
+  const { value: breakMinutes } = breakInput;
+  const { value: newLongBreakInterval } = longBreakIntervalInput;
+
+  longBreakInterval = newLongBreakInterval;
+  pomodoroAmount = 0;
+
+  updateTime(breakMinutes, "break");
+  updateTime(longBreakMinutes, "longBreak");
+
+  handleReset();
+
+  details.removeAttribute("open");
+};
+
 workBtn.addEventListener("click", handleWork);
 breakBtn.addEventListener("click", handleBreak);
 longBreakBtn.addEventListener("click", handleLongBreak);
@@ -167,3 +218,5 @@ startBtn.addEventListener("click", handleStart);
 pauseBtn.addEventListener("click", handlePause);
 resetBtn.addEventListener("click", handleReset);
 continueBtn.addEventListener("click", handleContinue);
+
+saveBtn.addEventListener("click", handleSave);
