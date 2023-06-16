@@ -7,6 +7,9 @@ const taskInput = document.querySelector("#taskInput");
 const tasksList = document.querySelector(".tasks__list");
 const addBtn = document.querySelector(".tasks__button");
 
+const comleteIcon = document.querySelector("#complete").content.cloneNode(true);
+const cancelIcon = document.querySelector("#cancel").content.cloneNode(true);
+
 let isUpdating = false;
 let updatedTask = null;
 
@@ -73,7 +76,10 @@ const handleComplete = (e) => {
     `[data-key='${e.target.dataset.completeKey}']`
   );
 
-  e.target.textContent = e.target.textContent === "✔" ? "🗙" : "✔";
+  e.target.classList.toggle("task__complete_completed");
+  e.target.classList.contains("task__complete_completed")
+    ? e.target.replaceChildren(cancelIcon.cloneNode(true))
+    : e.target.replaceChildren(comleteIcon.cloneNode(true));
 
   completedElement.classList.toggle("task_completed");
 };
@@ -105,8 +111,8 @@ const handleModalSave = () => {
   task.dataset.key = key;
 
   const completeBtn = document.createElement("button");
-  completeBtn.classList.add("task__complete");
-  completeBtn.textContent = "✔";
+  completeBtn.classList.add("button", "task__complete");
+  completeBtn.append(comleteIcon.cloneNode(true));
   completeBtn.dataset.completeKey = key;
   completeBtn.addEventListener("click", handleComplete);
   task.append(completeBtn);
@@ -115,13 +121,15 @@ const handleModalSave = () => {
   btns.classList.add("task__btns");
 
   const editBtn = document.createElement("button");
-  editBtn.textContent = "edit";
+  editBtn.classList.add("button");
+  editBtn.textContent = "Edit";
   editBtn.dataset.editKey = key;
   editBtn.addEventListener("click", handleEdit);
   btns.append(editBtn);
 
   const removeBtn = document.createElement("button");
-  removeBtn.textContent = "remove";
+  removeBtn.classList.add("button");
+  removeBtn.textContent = "Remove";
   removeBtn.dataset.removeKey = key;
   removeBtn.addEventListener("click", handleRemove);
   btns.append(removeBtn);

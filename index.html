@@ -9,68 +9,134 @@
   <body>
     <section class="settings">
       <div class="container">
-        <details>
-          <summary>Settings</summary>
-          <label class="settings__label"
-            >Long break interval:
-            <input id="longBreakIntervalInput" type="number" min="1" value="1"
-          /></label>
-          <label class="settings__label"
-            >Break minutes:
-            <input id="breakInput" type="number" min="1" value="5"
-          /></label>
-          <label class="settings__label"
-            >Long break minutes:
-            <input id="longBreakInput" type="number" min="2" value="15"
-          /></label>
-          <button class="settings__button" id="save">save</button>
+        <details class="settings__details">
+          <summary class="settings__summary">Settings</summary>
+          <div class="settings__content">
+            <label class="settings__label"
+              >Long break interval:
+              <input
+                placeholder="type some numbers..."
+                class="input settings__input"
+                id="longBreakIntervalInput"
+                type="number"
+                min="1"
+                value="1"
+            /></label>
+            <label class="settings__label">
+              Break minutes:
+              <input
+                placeholder="type some numbers..."
+                class="input settings__input"
+                id="breakInput"
+                type="number"
+                min="1"
+                value="5"
+              />
+            </label>
+            <label class="settings__label"
+              >Long break minutes:
+              <input
+                placeholder="type some numbers..."
+                class="input settings__input"
+                id="longBreakInput"
+                type="number"
+                min="1"
+                value="15"
+            /></label>
+            <button class="button button_primary" id="save">Save</button>
+          </div>
         </details>
       </div>
     </section>
-    <ul class="menu">
-      <li class="menu__item">
-        <button id="work" class="menu__button">work</button>
-      </li>
-      <li class="menu__item">
-        <button id="break" class="menu__button">break</button>
-      </li>
-      <li class="menu__item">
-        <button id="long-break" class="menu__button">long break</button>
-      </li>
-    </ul>
-    <div class="time">
-      <div id="minutes"></div>
-      <div class="divider">:</div>
-      <div id="seconds"></div>
-    </div>
-    <div class="controls">
-      <button id="start" class="control">start</button>
-      <button id="continue" class="control">continue</button>
-      <button id="pause" class="control">pause</button>
-      <button id="reset" class="control">reset</button>
-    </div>
+    <section class="timer">
+      <ul class="menu">
+        <li class="menu__item">
+          <button id="work" class="menu__button">Work</button>
+        </li>
+        <li class="menu__item">
+          <button id="break" class="menu__button">Break</button>
+        </li>
+        <li class="menu__item">
+          <button id="long-break" class="menu__button">Long break</button>
+        </li>
+      </ul>
+      <div class="time">
+        <div id="minutes"></div>
+        <div class="divider">:</div>
+        <div id="seconds"></div>
+      </div>
+      <div class="controls">
+        <button id="start" class="control button">Start</button>
+        <button id="continue" class="control button">Continue</button>
+        <button id="pause" class="control button">Pause</button>
+        <button id="reset" class="control button">Reset</button>
+      </div>
+    </section>
     <section class="tasks">
       <div class="container tasks__container">
         <h2 class="tasks__title">Tasks</h2>
         <ul class="tasks__list"></ul>
-        <button class="tasks__button">Add task</button>
+        <button class="tasks__button button">Add task</button>
       </div>
     </section>
     <dialog id="modal" class="modal">
       <input
         id="taskInput"
-        class="modal__input"
+        class="modal__input input"
         type="text"
         placeholder="What are you working on?"
       />
       <div class="modal__btns">
-        <button class="modal__button" id="modal-cancel">close</button>
-        <button class="modal__button" id="modal-save">save</button>
-        <button class="modal__button modal__button_hidden" id="modal-update">
-          update
+        <button class="button" id="modal-cancel">Close</button>
+        <button class="button_primary" id="modal-save">Save</button>
+        <button class="button_primary modal__button_hidden" id="modal-update">
+          Update
         </button>
       </div>
     </dialog>
+    <template id="complete">
+      <svg
+        version="1.1"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        x="0px"
+        y="0px"
+        viewBox="0 0 512 512"
+        style="enable-background: new 0 0 512 512"
+        xml:space="preserve"
+      >
+        <g id="F_-_325_x2C__Check_x2C__complete_x2C__tick">
+          <path
+            d="M492,18.001c-4.418-3.313-10.687-2.418-14,2L139.918,470.777L33.071,363.93c-3.905-3.904-10.237-3.904-14.143,0
+          c-3.905,3.905-3.905,10.237,0,14.143l115,115c4.303,4.302,11.423,3.793,15.071-1.071l345-460
+          C497.313,27.583,496.418,21.315,492,18.001z"
+          />
+        </g>
+        <g id="Layer_1"></g>
+      </svg>
+    </template>
+    <template id="cancel">
+      <svg
+        version="1.1"
+        id="Layer_1"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        x="0px"
+        y="0px"
+        viewBox="0 0 100.353 100.353"
+        style="enable-background: new 0 0 100.353 100.353"
+        xml:space="preserve"
+      >
+        <path
+          style="fill: #231f20"
+          d="M99.574,97.399L52.061,49.884L99.345,2.6c0.569-0.568,0.569-1.491,0-2.06
+	c-0.569-0.568-1.49-0.568-2.059,0L50.002,47.824L2.721,0.54c-0.569-0.569-1.49-0.568-2.059,0c-0.569,0.569-0.569,1.491,0,2.06
+	l47.281,47.284L0.428,97.399c-0.569,0.569-0.569,1.491,0,2.06c0.284,0.284,0.657,0.427,1.03,0.427s0.745-0.143,1.03-0.427
+	l47.515-47.515l47.513,47.515c0.284,0.284,0.657,0.427,1.03,0.427s0.745-0.143,1.03-0.427
+	C100.143,98.89,100.143,97.968,99.574,97.399z"
+        />
+      </svg>
+    </template>
 
     <script src="scripts/formatTime.js"></script>
     <script src="scripts/script.js"></script>
