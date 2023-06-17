@@ -30,7 +30,7 @@ const soundBtn = document.querySelector("#soundBtn");
 
 const defaultTime = {
   work: {
-    minutes: 1, // 25
+    minutes: 25, // 25
     seconds: 0,
   },
 
