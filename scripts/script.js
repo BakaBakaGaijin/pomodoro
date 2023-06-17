@@ -184,7 +184,7 @@ const handlePause = () => {
   endTimerTime = Date.now();
 
   if (startTimerTime && endTimerTime) {
-    pauseDelay = endTimerTime - startTimerTime;
+    pauseDelay = 1000 - (endTimerTime - startTimerTime);
   }
 
   isPause = true;
