@@ -22,6 +22,12 @@ const breakInput = document.querySelector("#breakInput");
 const longBreakInput = document.querySelector("#longBreakInput");
 const saveBtn = document.querySelector("#save");
 
+const soundOnIcon = document.querySelector("#soundOn").content.cloneNode(true);
+const soundOffIcon = document
+  .querySelector("#soundOff")
+  .content.cloneNode(true);
+const soundBtn = document.querySelector("#soundBtn");
+
 const defaultTime = {
   work: {
     minutes: 25, // 25
@@ -52,6 +58,17 @@ let timerId;
 let currentMinutes;
 let currentSeconds;
 let isPause = false;
+
+const alarm = new Audio("../audio/alarm.mp3");
+
+const handleSound = () => {
+  soundBtn.classList.toggle("sound-off");
+  const soundBtnIcon = soundBtn.classList.contains("sound-off")
+    ? soundOffIcon.cloneNode(true)
+    : soundOnIcon.cloneNode(true);
+  soundBtn.replaceChildren(soundBtnIcon);
+  alarm.volume = alarm.volume ? 0 : 1;
+};
 
 const setClasses = (selectedMode) => {
   modes.forEach((mode) => mode.classList.remove("menu__button_active"));
@@ -116,8 +133,8 @@ const handleStart = () => {
     }
 
     const timer = () => {
-      minutesEl.textContent = currentMinutes;
-      secondsEl.textContent = currentSeconds;
+      minutesEl.textContent = formatTime(currentMinutes);
+      secondsEl.textContent = formatTime(currentSeconds);
 
       currentSeconds -= 1;
 
@@ -125,6 +142,8 @@ const handleStart = () => {
         currentMinutes -= 1;
 
         if (currentMinutes === -1) {
+          alarm.play();
+
           if (currentMode === "work") {
             pomodoroAmount += 1;
 
@@ -181,14 +200,11 @@ const updateTime = (newMinutes, mode) => {
     if (newMinutes < 1) {
       time[mode].minutes = 1;
       currentMinutes = 1;
-      minutesEl.textContent = 1;
     } else {
       time[mode].minutes = newMinutes;
-      minutesEl.textContent = newMinutes;
     }
 
     currentSeconds = 0;
-    secondsEl.textContent = 0;
   } else {
     time[mode].minutes = newMinutes < 1 ? 1 : newMinutes;
   }
@@ -220,3 +236,5 @@ resetBtn.addEventListener("click", handleReset);
 continueBtn.addEventListener("click", handleContinue);
 
 saveBtn.addEventListener("click", handleSave);
+
+soundBtn.addEventListener("click", handleSound);
