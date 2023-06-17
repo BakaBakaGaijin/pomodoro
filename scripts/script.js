@@ -58,6 +58,9 @@ let timerId;
 let currentMinutes;
 let currentSeconds;
 let isPause = false;
+let startTimerTime;
+let endTimerTime;
+let pauseDelay = 0;
 
 const alarm = new Audio("../audio/alarm.mp3");
 
@@ -97,8 +100,15 @@ const handleLongBreak = () => {
   changeMode("longBreak");
 };
 
+const clearPauseDelay = () => {
+  startTimerTime = null;
+  endTimerTime = null;
+  pauseDelay = 0;
+};
+
 const changeMode = (mode) => {
-  clearInterval(timerId);
+  clearPauseDelay();
+  clearTimeout(timerId);
   timerId = null;
   startBtn.classList.remove("control_hidden");
   pauseBtn.classList.add("control_hidden");
@@ -133,6 +143,8 @@ const handleStart = () => {
     }
 
     const timer = () => {
+      startTimerTime = Date.now();
+
       minutesEl.textContent = formatTime(currentMinutes);
       secondsEl.textContent = formatTime(currentSeconds);
 
@@ -157,18 +169,26 @@ const handleStart = () => {
 
         currentSeconds = 59;
       }
+
+      timerId = setTimeout(timer, 1000);
     };
 
     startBtn.classList.add("control_hidden");
     pauseBtn.classList.remove("control_hidden");
     resetBtn.classList.remove("control_hidden");
-    timerId = setInterval(timer, 1000);
+    timerId = setTimeout(timer, pauseDelay || 1000);
   }
 };
 
 const handlePause = () => {
+  endTimerTime = Date.now();
+
+  if (startTimerTime && endTimerTime) {
+    pauseDelay = endTimerTime - startTimerTime;
+  }
+
   isPause = true;
-  clearInterval(timerId);
+  clearTimeout(timerId);
   timerId = null;
 
   pauseBtn.classList.add("control_hidden");
@@ -176,6 +196,8 @@ const handlePause = () => {
 };
 
 const handleReset = () => {
+  clearPauseDelay();
+
   switch (currentMode) {
     case "work":
       handleWork();
@@ -193,6 +215,7 @@ const handleContinue = () => {
   continueBtn.classList.add("control_hidden");
 
   handleStart();
+  clearPauseDelay();
 };
 
 const updateTime = (newMinutes, mode) => {
