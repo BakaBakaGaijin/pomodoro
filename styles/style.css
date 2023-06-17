@@ -33,7 +33,7 @@ body {
   background-color: var(--red);
   font-family: Arial, Helvetica, sans-serif;
   color: var(--orange);
-  padding-top: 10px;
+  padding: 10px 0;
 }
 
 svg {
@@ -93,6 +93,11 @@ ul {
   background-color: var(--red-active);
 }
 
+.button_sound {
+  width: 50px;
+  height: 50px;
+}
+
 .input {
   font-size: 16px;
   background-color: var(--orange);
@@ -135,15 +140,19 @@ ul {
 
 .settings__content {
   padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
 }
 
 .settings__label {
-  display: block;
-  padding: 5px;
+  display: flex;
   font-size: 16px;
 }
 
 .menu {
+  margin-bottom: 20px;
 }
 
 .menu__item {
@@ -175,6 +184,9 @@ ul {
 }
 
 .timer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .time {
@@ -313,5 +325,15 @@ ul {
 @media screen and (max-width: 720px) {
   .container {
     padding: 0 16px;
+  }
+
+  .settings__label {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .settings__input {
+    margin-left: 0;
   }
 }
