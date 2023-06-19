@@ -88,6 +88,27 @@ const setClasses = (selectedMode) => {
   }
 };
 
+const changeMode = (mode) => {
+  clearPauseDelay();
+
+  if (timerId) {
+    clearTimeout(timerId);
+    timerId = null;
+  }
+
+  startBtn.classList.remove("control_hidden");
+  pauseBtn.classList.add("control_hidden");
+  continueBtn.classList.add("control_hidden");
+  resetBtn.classList.add("control_hidden");
+  setClasses(mode);
+  currentMode = mode;
+  isPause = false;
+  const { minutes, seconds } = time[mode];
+
+  minutesEl.textContent = formatTime(minutes);
+  secondsEl.textContent = formatTime(seconds);
+};
+
 const handleWork = () => {
   changeMode("work");
 };
@@ -104,23 +125,6 @@ const clearPauseDelay = () => {
   startTimerTime = null;
   endTimerTime = null;
   pauseDelay = 0;
-};
-
-const changeMode = (mode) => {
-  clearPauseDelay();
-  clearTimeout(timerId);
-  timerId = null;
-  startBtn.classList.remove("control_hidden");
-  pauseBtn.classList.add("control_hidden");
-  continueBtn.classList.add("control_hidden");
-  resetBtn.classList.add("control_hidden");
-  setClasses(mode);
-  currentMode = mode;
-  isPause = false;
-  const { minutes, seconds } = time[mode];
-
-  minutesEl.textContent = formatTime(minutes);
-  secondsEl.textContent = formatTime(seconds);
 };
 
 handleWork(); // Задаём начальное значение
@@ -165,6 +169,8 @@ const handleStart = () => {
           } else {
             handleWork();
           }
+
+          return;
         }
 
         currentSeconds = 59;
@@ -190,7 +196,6 @@ const handlePause = () => {
   isPause = true;
   clearTimeout(timerId);
   timerId = null;
-
   pauseBtn.classList.add("control_hidden");
   continueBtn.classList.remove("control_hidden");
 };
