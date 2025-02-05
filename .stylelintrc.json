@@ -1,0 +1,83 @@
+{
+    "extends": ["stylelint-config-standard", "stylelint-config-recess-order"],
+    "reportDescriptionlessDisables": true,
+    "reportInvalidScopeDisables": true,
+    "reportNeedlessDisables": true,
+    "reportUnscopedDisables": false,
+    "ignoreDisables": false,
+    "allowEmptyInput": true,
+    "cache": false,
+    "rules": {
+        "alpha-value-notation": null,
+        "color-function-notation": null,
+        "custom-property-pattern": [
+            "^([a-z][a-z0-9]*)(-[a-z0-9]+)*$", 
+            {
+                "message": "Expected custom property name to be kebab-case"
+            }
+        ],
+        "keyframes-name-pattern": [
+            "^[a-z][a-zA-Z0-9]+$", 
+            {
+                "message": "Expected name to be camelCase"
+            }
+        ],
+        "selector-class-pattern":[ 
+            "^([a-z0-9]+(?:__[a-z0-9]+)*)(?:_[a-z0-9]+)*$", 
+            {
+                "message": "Expected class name to be BEM"
+            }
+        ],
+        "selector-id-pattern": [
+            "^([a-z0-9]+(?:__[a-z0-9]+)*)(?:_[a-z0-9]+)*$", 
+            {
+                "message": "Expected id to be BEM"
+            }
+        ],
+        "number-max-precision": 2,
+        "color-no-invalid-hex": true,
+        "function-calc-no-unspaced-operator": null,
+        "keyframe-declaration-no-important": null,
+        "function-linear-gradient-no-nonstandard-direction": true,
+        "function-no-unknown": true,
+        "no-unknown-animations": true,
+        "no-unknown-custom-media": true,
+        "no-unknown-custom-properties": true,
+        "unit-no-unknown": true,
+        "at-rule-no-vendor-prefix": null,
+        "length-zero-no-unit": null,
+        "selector-no-vendor-prefix": null,
+        "value-no-vendor-prefix": null,
+        "at-rule-empty-line-before": [
+            "always",
+            {
+                "except": ["first-nested", "blockless-after-same-name-blockless"],
+                "ignore": ["after-comment"]
+            }
+        ],
+        "comment-empty-line-before": "always",
+        "custom-property-empty-line-before": "never",
+        "declaration-empty-line-before": [
+            "always",
+            {
+                "except": ["after-declaration", "after-comment", "first-nested"]
+            }
+        ],
+        "rule-empty-line-before": [
+            "always", 
+            {
+                "except": ["first-nested", "after-single-line-comment"]
+            }
+        ],
+        "color-hex-length": null,
+        "hue-degree-notation": null,
+        "import-notation": null,
+        "keyframe-selector-notation": null,
+        "lightness-notation": null,
+        "media-feature-range-notation": null,
+        "selector-not-notation": null,
+        "font-family-name-quotes": "always-where-required",
+        "selector-attribute-quotes": "never"
+    },
+    "defaultSeverity": "error"
+}
